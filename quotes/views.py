@@ -9,4 +9,4 @@ class HomePageView(ListView):
 
     model = Quote #retrieve objects of type quote from DB
     template_name = 'quotes/home.html'
-    context_object_name = 'all_quotes_list' # how to find data in the template file
+    context_object_name = '' # how to find data in the template file all_quotes_list

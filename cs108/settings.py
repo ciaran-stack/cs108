@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,8 +41,9 @@ INSTALLED_APPS = [
     'hello_world.apps.HelloWorldConfig', #hello_world application
     'pages.apps.PagesConfig',
     'quotes',
-]
+    'mini_fb',
 
+]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
