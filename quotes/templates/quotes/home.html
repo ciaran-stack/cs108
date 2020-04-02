@@ -1,10 +1,12 @@
-<h1>Showing all quotes</h1>
 
-<ul>
+    <h1>Showing all quotes</h1>
+    <ul>
     {% for quote in all_quotes_list %}
     <li>
         "{{quote.text}}" - {{quote.author}}<br>
         <img src="{{quote.image_url}}" style="max-width: 400;"
     </li>
     {% endfor %}
-</ul>
+    </ul>
+
+
