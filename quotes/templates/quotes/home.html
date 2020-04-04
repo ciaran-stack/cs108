@@ -3,8 +3,8 @@
     <ul>
     {% for quote in all_quotes_list %}
     <li>
-        "{{quote.text}}" - {{quote.author}}<br>
-        <img src="{{quote.image_url}}" style="max-width: 400;"
+        "{{quote.text}}" - {{quote.person}}<br>
+        <img src="{{quote.person.get_random_image}}" style="max-width: 400;"
     </li>
     {% endfor %}
     </ul>

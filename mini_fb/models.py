@@ -1,4 +1,5 @@
 from django.db import models
+import time
 
 # Create your models here.
 
@@ -19,3 +20,25 @@ class Profile(models.Model):
     def __str__(self):
         '''Create string of object'''
         return '%s, %s, %s, %s, %s' % (self.first_name, self.last_name, self.city, self.email_address, self.profile_picture_url,)
+
+    def get_name(self):
+        '''Return name of profile'''
+        return self.first_name
+
+    def get_status_messages(self):
+        '''Return status messages of profile'''
+        messages = StatusMessage.objects.filter(profile=self.pk)
+        return messages
+
+class StatusMessage(models.Model):
+    '''Idea of a status message'''
+
+    message = models.TextField(blank=True)
+    profile = models.ForeignKey('Profile', on_delete="CASCADE ")
+
+    def __repr__(self):
+        return self.message
+
+    def __str__(self):
+        return self.message
+

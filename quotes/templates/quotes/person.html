@@ -1,0 +1,20 @@
+<center>
+
+<h2>All Quotes by {{Person.name}}</h2>
+
+    <ul>
+        {% for person in Person.get_all_quotes %}
+
+        <li> {{quote.text}} </li>
+
+        {% endfor %}
+    </ul>
+
+<h2>All Images of {{Person.name}}</h2>
+    <ul>
+        {% for person in Person.get_all_images %}
+        <li> <img src='{{image}}' style ='width: 400;'> </li>
+        {% endfor %}
+    </ul>
+
+</center>

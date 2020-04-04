@@ -1,0 +1,23 @@
+
+{% extends 'mini_fb/base.html' %}
+{% block content %}
+    <table>
+        <tr>
+            <th><h3>{{profile.first_name}} {{profile.last_name}} </h3> </th>
+        <tr><td>
+            <img src = "{{profile.profile_picture_url}}" style = "max-width: 400">
+        </td></tr>
+        <br>
+        <tr><td>{{profile.email_address}}</td></tr>
+        <tr><td>{{profile.city}}</td></tr>
+        <tr>
+        {% for message in Profile.get_status_messages %}
+
+        <li> {{message}} </li>
+
+        {% endfor %}
+
+        </tr>
+
+    </table>
+{% endblock %}
