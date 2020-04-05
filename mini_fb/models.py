@@ -30,11 +30,13 @@ class Profile(models.Model):
         messages = StatusMessage.objects.filter(profile=self.pk)
         return messages
 
+
 class StatusMessage(models.Model):
     '''Idea of a status message'''
 
     message = models.TextField(blank=True)
     profile = models.ForeignKey('Profile', on_delete="CASCADE ")
+    timestamp = time.ctime()
 
     def __repr__(self):
         return self.message

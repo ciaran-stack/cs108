@@ -1,7 +1,7 @@
 
 {% extends 'mini_fb/base.html' %}
 {% block content %}
-    <table>
+    <table border="1">
         <tr>
             <th><h3>{{profile.first_name}} {{profile.last_name}} </h3> </th>
         <tr><td>
@@ -11,13 +11,22 @@
         <tr><td>{{profile.email_address}}</td></tr>
         <tr><td>{{profile.city}}</td></tr>
         <tr>
-        {% for message in Profile.get_status_messages %}
-
-        <li> {{message}} </li>
-
-        {% endfor %}
-
+            <th>
+                <h3>Status Messages</h3>
+            </th>
+        <tr>
+        <th align="left"><h4>Message</h4></th>
+        <th align="left"><h4>Time</h4></th>
         </tr>
+            <tr>
+            {% for messages in profile.get_status_messages %}
+            <td>{{messages}}</td>
+            {% endfor %}
+            {% for messages in profile.get_timestamp %}
+            <td>{{timestamps}}</td>
+            {% endfor %}
 
+            </tr>
+        </tr>
     </table>
 {% endblock %}

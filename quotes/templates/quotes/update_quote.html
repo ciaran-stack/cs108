@@ -1,0 +1,27 @@
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+
+
+<h2>Update Quote</h2>
+
+<form method = 'POST'>
+
+    {% csrf_token %}
+    <table>
+        <tr>
+        {% for field in form %}
+
+        <th>{{field.name}}</th>
+        <td>{{field}}</td>
+        </tr>
+        {% endfor %}
+
+
+    </table>
+
+
+    <input type ="submit" name = "Update Quote" value="Update Quote">
+
+</form>
+{% endblock %}

@@ -1,10 +1,10 @@
 from django.db import models
 import random
-
-# Create your models here.
+from django.urls import reverse
 
 class Person(models.Model):
     '''Encapsulate idea of a person, who said a famous quote.'''
+
     name = models.TextField(blank=False)
 
     def __str__(self):
@@ -21,6 +21,7 @@ class Person(models.Model):
         # pick a photo and return
         i = random.randint(0, len(images) - 1)
 
+        # return index[i] of image
         return images[i]
 
     # Get all images of a person
@@ -33,22 +34,25 @@ class Person(models.Model):
         quotes = Quote.objects.filter(person=self.pk)
         return quotes
 
-
 class Quote(models.Model):
     '''Encapsulate idea of a quote.'''
 
     #data attributes
     text = models.TextField(blank=True)
-    person = models.ForeignKey('Person', on_delete="CASCADE ")
+    person = models.ForeignKey('Person', on_delete="CASCADE")
 
     def __str__(self):
         '''Create string of object'''
         return '"%s" - %s' % (self.text, self.person.name)
 
+    def get_absolute_url(self):
+        '''Return URL to display this quote object.'''
+        return reverse("quote", kwargs={"pk": self.pk})
+
 class Image(models.Model):
     '''Represent an image which is associated with a person.'''
     image_url = models.URLField(blank=True)
-    person = models.ForeignKey('Person', on_delete="Cascade")
+    person = models.ForeignKey('Person', on_delete="CASCADE")
 
     def __str__(self):
         '''Return a string representation of this image.'''
