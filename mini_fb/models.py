@@ -1,5 +1,6 @@
 from django.db import models
 import time
+from django.urls import reverse
 
 
 # Create your models here.
@@ -33,12 +34,16 @@ class Profile(models.Model):
         messages = StatusMessage.objects.filter(profile=self.pk)
         return messages
 
+    def get_absolute_url(self):
+        """Return URL to display this quote object."""
+        return reverse("show_profile_page", kwargs={"pk": self.pk})
+
 
 class StatusMessage(models.Model):
     """Idea of a status message"""
 
     message = models.TextField(blank=True)
-    profile = models.ForeignKey('Profile', on_delete="CASCADE ")
+    profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
     timestamp = time.ctime()
 
     def __repr__(self):

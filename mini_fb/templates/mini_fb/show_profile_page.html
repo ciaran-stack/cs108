@@ -11,6 +11,9 @@
         <tr><td>{{profile.email_address}}</td></tr>
         <tr><td>{{profile.city}}</td></tr>
         <tr>
+            <td><a href = "{% url 'update_profile' profile.pk %}" >Edit Profile</a></td>
+        </tr>
+        <tr>
             <th>
                 <h3>Status Messages</h3>
             </th>
@@ -18,6 +21,23 @@
         <th align="left"><h4>Message</h4></th>
         <th align="left"><h4>Time</h4></th>
         </tr>
+        <h2>Update Profile</h2>
+
+        <form method = 'POST'>
+
+        {% csrf_token %}
+        <table>
+            <tr>
+            {% for field in form %}
+
+            <th>{{field.name}}</th>
+                <td>{{field}}</td>
+            </tr>
+            {% endfor %}
+            </table>
+            <input type ="submit" name = "Update Profile" value="Update Profile">
+        </form>
+
             <tr>
             {% for messages in profile.get_status_messages %}
             <td>{{messages}}</td>

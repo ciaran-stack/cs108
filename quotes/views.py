@@ -10,6 +10,8 @@ import random
 from .forms import CreateQuoteForm, UpdateQuoteForm, AddImageForm
 
 
+
+
 class HomePageView(ListView):
     '''Create subclass of Listview to display quotes'''
 
@@ -49,8 +51,7 @@ class PersonPageView(DetailView):
 
     model = Person
     template_name = 'quotes/person.html'
-
-    # context_object_name = 'person'
+    #context_object_name = 'person'
 
     def get_context_data(self, **kwargs):
         """Return a dictionary with context data for this template to use."""
@@ -65,7 +66,6 @@ class PersonPageView(DetailView):
 
         # return the context dictionary
         return context
-
 
 class CreateQuoteView(CreateView):
     """View to create a new quote and save it to the DB"""
@@ -88,18 +88,18 @@ class DeleteQuoteView(DeleteView):
 
     template_name = 'quotes/delete_quote.html'
     queryset = Quote.objects.all()
-    success_url = "../../all"  # what to do after deleting a quote
+    success_url = "../../all" # what to do after deleting a quote
 
     def get_success_url(self):
         """Return a URL to which we should be directed after the delete."""
 
         # Get the PK
         pk = self.kwargs.get('pk')
-        quote = Quote.objects.filter(pk=pk).first()  # one object from query set
+        quote = Quote.objects.filter(pk=pk).first() # one object from query set
 
         # Find the person associated with the PK
         person = quote.person
-        return reverse('person', kwargs={'pk': person.pk})
+        return reverse('person', kwargs={'pk':person.pk})
 
         # Reverse to show the person page
 
@@ -116,13 +116,13 @@ def add_image(request, pk):
     # check if form is valid, save to DB
     if form.is_valid():
 
-        image = form.save(commit=False)  # create the Image object, but not save
+        image = form.save(commit=False) # create the Image object, but not save
         image.person = person
-        image.save()  # story to the DB
+        image.save() # story to the DB
 
     else:
         print("Error: The form was not valid ")
 
     # redirect to a new URL, display person page
-    url = reverse('person', kwargs={'pk': pk})
+    url = reverse('person', kwargs={'pk':pk})
     return redirect(url)

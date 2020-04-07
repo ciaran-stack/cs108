@@ -2,6 +2,7 @@ from django.db import models
 import random
 from django.urls import reverse
 
+
 class Person(models.Model):
     '''Encapsulate idea of a person, who said a famous quote.'''
 
@@ -34,10 +35,11 @@ class Person(models.Model):
         quotes = Quote.objects.filter(person=self.pk)
         return quotes
 
+
 class Quote(models.Model):
     '''Encapsulate idea of a quote.'''
 
-    #data attributes
+    # data attributes
     text = models.TextField(blank=True)
     person = models.ForeignKey('Person', on_delete=models.CASCADE)
 
@@ -49,9 +51,10 @@ class Quote(models.Model):
         '''Return URL to display this quote object.'''
         return reverse("quote", kwargs={"pk": self.pk})
 
+
 class Image(models.Model):
     '''Represent an image which is associated with a person.'''
-    image_url = models.URLField(blank=True) # image URL string
+    image_url = models.URLField(blank=True)  # image URL string
     image_file = models.ImageField(blank=True)
     person = models.ForeignKey('Person', on_delete=models.CASCADE)
 
@@ -60,6 +63,4 @@ class Image(models.Model):
         if self.image_url:
             return self.image_url
         else:
-            return self.image_file.url # url to the image file on server
-
-
+            return self.image_file.url  # url to the image file on server
