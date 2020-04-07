@@ -39,7 +39,7 @@ class Quote(models.Model):
 
     #data attributes
     text = models.TextField(blank=True)
-    person = models.ForeignKey('Person', on_delete="CASCADE")
+    person = models.ForeignKey('Person', on_delete=models.CASCADE)
 
     def __str__(self):
         '''Create string of object'''
@@ -51,9 +51,15 @@ class Quote(models.Model):
 
 class Image(models.Model):
     '''Represent an image which is associated with a person.'''
-    image_url = models.URLField(blank=True)
-    person = models.ForeignKey('Person', on_delete="CASCADE")
+    image_url = models.URLField(blank=True) # image URL string
+    image_file = models.ImageField(blank=True)
+    person = models.ForeignKey('Person', on_delete=models.CASCADE)
 
     def __str__(self):
         '''Return a string representation of this image.'''
-        return self.image_url
+        if self.image_url:
+            return self.image_url
+        else:
+            return self.image_file.url # url to the image file on server
+
+
