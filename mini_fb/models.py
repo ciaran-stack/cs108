@@ -35,7 +35,7 @@ class Profile(models.Model):
         return messages
 
     def get_absolute_url(self):
-        """Return URL to display this quote object."""
+        """Return URL to display this profile object."""
         return reverse("show_profile_page", kwargs={"pk": self.pk})
 
 

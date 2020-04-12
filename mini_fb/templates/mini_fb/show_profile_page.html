@@ -1,52 +1,61 @@
-
 {% extends 'mini_fb/base.html' %}
+
 {% block content %}
     <table border="1">
+        <h1>Profile</h1>
         <tr>
-            <th><h3>{{profile.first_name}} {{profile.last_name}} </h3> </th>
-        <tr><td>
+        </tr>
+        <td>
             <img src = "{{profile.profile_picture_url}}" style = "max-width: 400">
-        </td></tr>
+        </td>
+
         <br>
-        <tr><td>{{profile.email_address}}</td></tr>
-        <tr><td>{{profile.city}}</td></tr>
         <tr>
-            <td><a href = "{% url 'update_profile' profile.pk %}" >Edit Profile</a></td>
+            <td align="center"><h3>{{profile.first_name}} {{profile.last_name}}</h3></td>
         </tr>
         <tr>
-            <th>
-                <h3>Status Messages</h3>
-            </th>
+            <td>  Email: {{profile.email_address}} </td>
+        <tr><td> City: {{profile.city}}</td></tr>
         <tr>
-        <th align="left"><h4>Message</h4></th>
-        <th align="left"><h4>Time</h4></th>
-        </tr>
-        <h2>Update Profile</h2>
-
-        <form method = 'POST'>
-
-        {% csrf_token %}
-        <table>
-            <tr>
-            {% for field in form %}
-
-            <th>{{field.name}}</th>
-                <td>{{field}}</td>
-            </tr>
-            {% endfor %}
-            </table>
-            <input type ="submit" name = "Update Profile" value="Update Profile">
-        </form>
-
-            <tr>
-            {% for messages in profile.get_status_messages %}
-            <td>{{messages}}</td>
-            {% endfor %}
-            {% for messages in profile.get_timestamp %}
-            <td>{{timestamps}}</td>
-            {% endfor %}
-
-            </tr>
+            <td> <a href = "{% url 'update_profile' profile.pk %}" >Edit Profile</a> </td>
         </tr>
     </table>
+    <table border="1">
+            <tr>
+
+            <th>
+                <h3> Status Messages </h3>
+            </th>
+            <th>
+                <h3> Time </h3>
+            </th>
+            <tr>
+            {% for messages in profile.get_status_messages %}
+
+            <tr></tr><td align="center"> {{messages}} </td></tr>
+            <td>{{timestamps}}</td>
+            {% endfor %}
+    </table>
+
+        <form method='POST'
+              action= "{% url 'post_status' profile.pk %}">
+
+            {% csrf_token %}
+            <table border="1">
+                <tr>
+                {% for field in create_status_form %}
+
+                    <th>{{field.name}}</th>
+                    <tr><td>{{field}}</td></tr>
+
+                </tr>
+                {% endfor %}
+
+                <td></td>
+                <td><input type ="submit" name = "Create Status Message" value="Create Status Message"></td>
+
+            </table>
+
+        </form>
+
 {% endblock %}

@@ -1,33 +1,31 @@
-from .models import Profile, StatusMessage
+
+# import statements
+from django.urls import reverse
+from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from .forms import CreateProfileForm, UpdateProfileForm
-from django.shortcuts import redirect
-from django.urls import reverse
+from django.shortcuts import render
+
+
+from .models import Profile, StatusMessage
+from .forms import CreateProfileForm, UpdateProfileForm, CreateStatusMessage
 
 
 class ShowAllProfilesView(ListView):
-    '''Create subclass of Listview to display Profiles'''
+    """Create subclass of Listview to display Profiles"""
 
-    model = Profile  # retrieve objects of type quote from DB
+    model = Profile
     template_name = 'mini_fb/show_all_profiles.html'
-    context_object_name = 'all_profiles_list'  # how to find data in the template all_profiles_list
+    context_object_name = 'all_profiles_list'
 
 
 class ShowProfilePageView(DetailView):
-    '''Create a subclass of DetailView to show a profile.'''
+    """Create a subclass of DetailView to show a profile."""
 
     model = Profile
     template_name = 'mini_fb/show_profile_page.html'
-    context_object_name = 'profile'
-
-
-class CreateProfileView(CreateView):
-    """Create a subclass of CreateView to create a profile."""
-
-    form_class = CreateProfileForm
-    template_name = 'mini_fb/create_profile_form.html'
-    context_object_name = 'create_profile'
+    #context_object_name = 'profile'
+    #queryset = Profile.objects.all()
 
     def get_context_data(self, **kwargs):
         '''Return the context data (a dictionary) to be used in the template.'''
@@ -37,10 +35,21 @@ class CreateProfileView(CreateView):
         context = super(ShowProfilePageView, self).get_context_data(**kwargs)
         # create a new CreateStatusMessageForm, and add it into the context dictionary
 
-        form = CreateStatusMessageForm()
-        context['create_status_form'] = form
+        create_status_form = CreateStatusMessage()
+        context['create_status_form'] = create_status_form
+
         # return this context dictionary
         return context
+
+
+class CreateProfileView(CreateView):
+    """Create a subclass of CreateView to create a profile."""
+
+    form_class = CreateProfileForm
+    template_name = 'mini_fb/create_profile_form.html'
+    context_object_name = 'create_profile'
+
+
 
 
 class UpdateProfileView(UpdateView):
@@ -64,6 +73,7 @@ def create_status_message(request, pk):
         # read the data from this form submission
         message = request.POST['message']
 
+
         # save the new status message object to the database
         if message:
 
@@ -73,5 +83,6 @@ def create_status_message(request, pk):
             sm.save()
 
     # redirect the user to the show_profile_page view
-    return redirect(reverse('show_profile_page', kwargs={'pk': pk}))
+    url = reverse('show_profile_page', kwargs={'pk': pk})
+    return redirect(url)
 

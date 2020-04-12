@@ -1,6 +1,7 @@
 from django import forms
 from .models import Profile, StatusMessage
 
+
 class CreateProfileForm(forms.ModelForm):
     """form to add new profiles to the DB"""
 
@@ -14,9 +15,10 @@ class UpdateProfileForm(forms.ModelForm):
     """A form to update a profile to the DB"""
 
     class Meta:
-        """Assocate this form with the Quote model"""
+        """Associate this form with the Quote model"""
         model = Profile
-        fields = ['city', 'email_address', 'profile_picture_url',]
+        fields = ['city', 'email_address', 'profile_picture_url', ]
+
 
 class CreateStatusMessage(forms.ModelForm):
     """form to add new profiles to the DB"""
@@ -24,4 +26,4 @@ class CreateStatusMessage(forms.ModelForm):
     class Meta:
         """Associate this form with the Quote model"""
         model = StatusMessage
-        fields = ['message',]
+        fields = ['message', ]
