@@ -20,10 +20,16 @@ class UpdateProfileForm(forms.ModelForm):
         fields = ['city', 'email_address', 'profile_picture_url', ]
 
 
-class CreateStatusMessage(forms.ModelForm):
-    """form to add new profiles to the DB"""
+class CreateStatusMessageForm(forms.ModelForm):
+    """form to add new status messages to the DB"""
 
     class Meta:
         """Associate this form with the Quote model"""
         model = StatusMessage
-        fields = ['message', ]
+        fields = ['message', 'image', ]
+
+
+
+
+
+

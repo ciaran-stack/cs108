@@ -77,7 +77,7 @@ class CreateQuoteView(CreateView):
 
 
 class UpdateQuoteView(UpdateView):
-    '''View to update a  quote and save it to the DB'''
+    """View to update a  quote and save it to the DB"""
 
     form_class = UpdateQuoteForm
     template_name = 'quotes/update_quote.html'
@@ -105,14 +105,14 @@ class DeleteQuoteView(DeleteView):
         # Reverse to show the person page
 
 
-def add_image(request, pk):
+def add_image(self, pk):
     """A custom view function to handle the submission of an image upload."""
 
     # find the person for whom we are submitting the image
     person = Person.objects.get(pk=pk)
 
     # read request data into AddImageForm object
-    form = AddImageForm(request.POST or None, request.FILES or None)
+    form = AddImageForm(self.POST or None, self.FILES or None)
 
     # check if form is valid, save to DB
     if form.is_valid():

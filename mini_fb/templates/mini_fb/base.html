@@ -1,12 +1,20 @@
 <html>
 <head>
-    <title color = "Teal"> Facebook </title>
+    <title> Mini Facebook </title>
+    <style> body {background-color: whitesmoke;}
+        h1 {background-color: rgb(0, 100, 190); color: snow; font-family: monospace; font-size: 300%;}
+        h3 {font-family: monospace;}
+        a {color: black;}</style>
 </head>
     <body>
     <header>
         <a href="{% url 'show_all_profiles' %} "> Home |</a>
         <a href="{% url 'create_profile' %} "> Create Profile</a>
     </header>
+    <style>h2 {font-family: monospace; font-size: 175%; background-color: rgb(0, 100, 190); color: snow;}
+    table, th, td {font-family: monospace; border: 1px; border-style: solid; border-color: black; border-width: 1px;}
+    th {font-size: 150%;}
+    img {display:block;}</style>
 
     {% block content %}
 

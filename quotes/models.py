@@ -4,17 +4,17 @@ from django.urls import reverse
 
 
 class Person(models.Model):
-    '''Encapsulate idea of a person, who said a famous quote.'''
+    """Encapsulate idea of a person, who said a famous quote."""
 
     name = models.TextField(blank=False)
 
     def __str__(self):
-        '''Return string representation of this person.'''
+        """Return string representation of this person."""
         return self.name
 
     # Get an image at random
     def get_random_image(self):
-        '''Return an image of this person at random.'''
+        """Return an image of this person at random."""
 
         # get all images of this person
         images = Image.objects.filter(person=self.pk)
@@ -27,7 +27,7 @@ class Person(models.Model):
 
     # Get all images of a person
     def get_all_images(self):
-        '''Returns queryset of all images of a person'''
+        """Returns queryset of all images of a person"""
         images = Image.objects.filter(person=self.pk)
         return images
 
@@ -53,7 +53,7 @@ class Quote(models.Model):
 
 
 class Image(models.Model):
-    '''Represent an image which is associated with a person.'''
+    """Represent an image which is associated with a person."""
     image_url = models.URLField(blank=True)  # image URL string
     image_file = models.ImageField(blank=True)
     person = models.ForeignKey('Person', on_delete=models.CASCADE)

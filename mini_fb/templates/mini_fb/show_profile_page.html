@@ -3,59 +3,95 @@
 {% block content %}
     <table border="1">
         <h1>Profile</h1>
-        <tr>
-        </tr>
-        <td>
-            <img src = "{{profile.profile_picture_url}}" style = "max-width: 400">
-        </td>
-
+        <tr></tr>
+        <td><img src = "{{profile.profile_picture_url}}" style = "max-width: 400"></td>
         <br>
         <tr>
-            <td align="center"><h3>{{profile.first_name}} {{profile.last_name}}</h3></td>
+            <td align="center"> <h3>{{profile.first_name}} {{profile.last_name}} </h3></td>
         </tr>
+
         <tr>
             <td>  Email: {{profile.email_address}} </td>
-        <tr><td> City: {{profile.city}}</td></tr>
+        </tr>
         <tr>
-            <td> <a href = "{% url 'update_profile' profile.pk %}" >Edit Profile</a> </td>
+            <td> City: {{profile.city}}</td>
+        </tr>
+
+
+    <tr>
+        <td> <a href = "{% url 'update_profile' profile.pk %}" >Update Profile | </a>
+             <a href = "{% url 'show_possible_friends' profile.pk %}" > Show Possible Friends | </a>
+             <a href = "{% url 'news_feed' profile.pk %}" > News Feed </a>
+        </td>
+    </tr>
+    </table>
+    <p></p>
+
+    <table border="1">
+
+        <tr>
+            <th><h3> Messages </h3></th>
+            <th><h3> Image </h3></th>
+            <th><h3> Time </h3></th>
+            <th></th>
+        </tr>
+
+        <tr>
+            {% for messages in profile.get_status_messages %}
+            <tr>
+            <td align="center">  {{messages.message}} </td>
+            <td> {% if messages.image %}
+                <img src='{{messages.image.url}}'
+                     style='max-width: 200;'>{% endif %}
+            </td>
+            <td>{{messages.timestamp}}</td>
+            <td align="center"> <a href="{% url 'delete_status' profile.pk messages.pk %}"> Delete </a> </td>
+            {% endfor %}
         </tr>
     </table>
-    <table border="1">
-            <tr>
 
-            <th>
-                <h3> Status Messages </h3>
-            </th>
-            <th>
-                <h3> Time </h3>
-            </th>
-            <tr>
-            {% for messages in profile.get_status_messages %}
-
-            <tr></tr><td align="center"> {{messages}} </td></tr>
-            <td>{{timestamps}}</td>
-            {% endfor %}
-    </table>
+    <table>
+        <tr><td></td><th>Create Status</th></tr>
 
         <form method='POST'
-              action= "{% url 'post_status' profile.pk %}">
+              action= "{% url 'post_status' profile.pk %}"
+              enctype="multipart/form-data">
 
             {% csrf_token %}
-            <table border="1">
+
+                <p></p>
                 <tr>
                 {% for field in create_status_form %}
 
-                    <th>{{field.name}}</th>
-                    <tr><td>{{field}}</td></tr>
+                    <th> {{field.name}}  </th>
+                    <td>{{field}}</td>
 
                 </tr>
                 {% endfor %}
 
-                <td></td>
-                <td><input type ="submit" name = "Create Status Message" value="Create Status Message"></td>
-
-            </table>
+            <th>Post</th>
+            <td align ="center"> <input type ="submit" name = "Create Status Message" value="Create Status Message"></td>
 
         </form>
+    </table>
 
-{% endblock %}
+
+<h2>{{profile.first_name}} {{profile.last_name}}&#39;s friends</h2>
+
+{% if profile.get_friends %}
+
+{% for f in profile.get_friends %}
+<table border="1">
+    <tr>
+        <td align="center"><a href="{%url 'show_profile_page' f.pk%}" >{{f.first_name}} {{f.last_name}}</a></td>
+        <td><img src= "{{f.profile_picture_url}}" style="max-width: 200;"></td>
+    </tr>
+</table>
+{% endfor %}
+
+{% else %}
+{{profile.first_name}} doesn&#39;t have any friends.
+{% endif %}
+
+{% endblock %}</body></html>
+

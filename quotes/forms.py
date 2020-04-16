@@ -11,6 +11,14 @@ class CreateQuoteForm(forms.ModelForm):
         fields = ['person', 'text', ]  # determines which fields of model that we use'
 
 
+class AddImageForm(forms.ModelForm):
+    """A form to collect an image from the user."""
+
+    class Meta:
+        model = Image
+        fields = ["image_file", ]
+
+
 class UpdateQuoteForm(forms.ModelForm):
     """A form to update a quote to the DB"""
 
@@ -18,11 +26,3 @@ class UpdateQuoteForm(forms.ModelForm):
         """Associate this form with the Quote model"""
         model = Quote
         fields = ['person', 'text', ]  # determines which fields of model that we use'
-
-
-class AddImageForm(forms.ModelForm):
-    """A form to collect an image from the user."""
-
-    class Meta:
-        model = Image
-        fields = ["image_file", ]
