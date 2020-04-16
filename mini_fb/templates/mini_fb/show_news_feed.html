@@ -6,24 +6,19 @@
 
 <h2>News Feed</h2>
 
-<table border="0">
-    {% for post in profile.get_news_feed %}
+<table border="1">
 
-    <colgroup>
-        <col span="1" style="width: 10%;">
-        <col span="1" style="width: 10%;">
-        <col span="1" style="width: 10%;">
-        <col span="1" style="width: 10%;">
-    </colgroup>
+    {% for post in profile.get_news_feed %}
 
     <tr>
         <td>{{post.timestamp}}</td>
         <td><a href="{% url 'show_profile_page' post.profile.pk %}">{{post.profile.first_name}} {{post.profile.last_name}}</a></td>
-        <td><img src='{{post.profile.image_url}}' style='max-width: 100;'></td>
+        <td><img src='{{post.profile.image_url}}' style='max-width: 200'></td>
         {% if post.image %}
-        <td><img src='{{post.image.url}}' style='max-width: 100;'></td>
+        <td><img src='{{post.image.url}}' style='max-width: 200'></td>
         {% endif %}
         <td>{{post.message}}</td>
+
     </tr>
 {% endfor %}
 </table>

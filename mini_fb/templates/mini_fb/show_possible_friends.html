@@ -7,12 +7,8 @@
 <h2>Friend suggestions for {{profile.first_name}} {{profile.last_name}}</h2>
 
 {% for f in profile.get_friend_suggestions %}
-<table border="0">
-    <colgroup>
-        <col span="1" style="width: 40%;">
-        <col span="1" style="width: 30%;">
-        <col span="1" style="width: 30%;">
-    </colgroup>
+
+<table border="1">
     <tr>
         <td align="center"><a href="{% url 'show_profile_page' f.pk %}"><img src='{{f.image_url}}' style='max-width: 200;'></a></td>
         <td align="center"><a href="{% url 'show_profile_page' f.pk %}">{{f.first_name}}</a> <a href="{% url 'show_profile_page' f.pk %}">{{f.last_name}}</a></td>
