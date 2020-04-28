@@ -24,6 +24,7 @@ urlpatterns = [
     path('pages/', include('pages.urls')),  # link to urls in hello_world app
     path('quotes/', include('quotes.urls')),
     path('mini_fb/', include('mini_fb.urls')),
+    path('green_biz/', include('green_biz.urls')), # links to urls in green_biz
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

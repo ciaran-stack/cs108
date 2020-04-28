@@ -1,0 +1,25 @@
+{% extends "green_biz/base.html" %}
+
+{% block content %}
+
+<a href="{% url 'show_org_page' organization.pk %}"> Return to {{organization.name}} Page</a>
+
+<h2>Peer suggestions for {{organization.name}} </h2>
+
+{% for f in organization.get_peer_suggestions %}
+
+<table border="1">
+    <tr>
+        <td align="center"><a href="{% url 'show_org_page' f.pk %}"><img src='{{f.organization_picture_url}}' style='max-width: 200;'></a></td>
+        <td align="center"><a href="{% url 'show_org_page' f.pk %}">{{f.first_name}}</a> <a href="{% url 'show_org_page' f.pk %}">{{f.name}}</a></td>
+        <td>
+            <form method='POST' action="{% url 'add_peer' organization_pk=organization.pk peer_pk=f.pk %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type='submit' name="Add Peer" value="Add Peer">
+            </form>
+        </td>
+    </tr>
+</table>
+{% endfor %}
+
+{% endblock %}

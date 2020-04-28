@@ -1,10 +1,8 @@
 from django.db import models
-import time
 from django.urls import reverse
 
 
 # Create your models here.
-
 class Profile(models.Model):
     """Encapsulate idea of a Profile"""
 
@@ -14,6 +12,8 @@ class Profile(models.Model):
     city = models.TextField(blank=True)
     email_address = models.TextField(blank=True)
     profile_picture_url = models.URLField(blank=True)
+
+    # establish relation between profiles
     friends = models.ManyToManyField("self")
 
     def __repr__(self):

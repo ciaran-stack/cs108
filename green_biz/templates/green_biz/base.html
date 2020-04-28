@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title> Green Business </title>
+    <link rel="stylesheet" href="http://cs-people.bu.edu/cmahon97/css/Eleganter%20Free%20Website%20Template%20-%20Free-CSS.com/css/template-style.css">
+
+</head>
+    <body>
+    <header>
+        <a href="{% url 'show_all_orgs' %} "> Home |</a>
+        <a href="{% url 'create_org' %} "> Create Organization | </a>
+        <a href="https://www.un.org/sustainabledevelopment/sustainable-development-goals/"> Sustainability Goals </a>
+    </header>
+
+
+    {% block content %}
+
+    {% endblock %}
+    </body>
+</html>

@@ -37,7 +37,7 @@ class Person(models.Model):
 
 
 class Quote(models.Model):
-    '''Encapsulate idea of a quote.'''
+    """Encapsulate idea of a quote."""
 
     # data attributes
     text = models.TextField(blank=True)

@@ -1,0 +1,37 @@
+{% extends 'green_biz/base.html' %}
+{% block content %}
+
+<h1 align="center" xmlns:padding="http://www.w3.org/1999/xhtml"> Welcome to the Better Business Initiative</h1>
+<table border="0">
+
+    <tr>
+        <td></td><td></td>
+        <td style="width:30%">
+            <h2>A Greener Future </h2>
+            <br>The Better Business Initiative is a movement started by GreenBusiness Inc. We help large organizations
+        transform their operations and business practices for a more sustainable future. Start today transforming business
+            by creating your organization and planning sustainability initiatives. </td>
+        <td></td><td></td><td></td>
+        <td> <img src="https://2y5da6sqbsf4bertb26n96bz-wpengine.netdna-ssl.com/wp-content/uploads/main_eco.png" style="max-width: 700; max-height: 2000"> </td>
+    </tr>
+</table>
+<hr>
+
+<h2 align = "center"> Participating Organizations</h2>
+
+    <table border="1" align="center">
+        <tr>
+             <th><b> Organization </b></th>
+            <th><b> Industry </b></th>
+            <th><b> Company Logo </b></th>
+        </tr>
+        {% for Organization in all_orgs_list %}
+        <tr>
+                <td align="center"> <a href = "{% url 'show_org_page' Organization.pk%} ">{{Organization.name}} </a></td>
+                <td align="center">{{Organization.industry}}</td>
+                <td align="center" style="max-width: 400;"> <img src="{{Organization.organization_picture_url}}" style="max-width: 100; max-height: 100"></td>
+
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

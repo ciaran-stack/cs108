@@ -24,7 +24,6 @@ class ShowProfilePageView(DetailView):
     template_name = 'mini_fb/show_profile_page.html'
     context_object_name = 'profile'
 
-
     def get_context_data(self, **kwargs):
         """Return the context data (a dictionary) to be used in the template."""
 

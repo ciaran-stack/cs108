@@ -1,0 +1,26 @@
+{% extends "green_biz/base.html" %}
+
+{% block content %}
+
+<a href="{% url 'show_org_page' organization.pk %}"> Return to {{organization.name}}'s Page</a>
+
+<h2>News Feed</h2>
+
+<table border="1">
+
+    {% for post in organization.get_news_feed %}
+
+    <tr>
+        <td><a href="{% url 'show_org_page' post.organization.pk %}">{{post.organization.name}} </a></td>
+        <td><img src='{{post.organization.image_url}}' style='max-width: 200'></td>
+        {% if post.image %}
+        <td><img src='{{post.image.url}}' style='max-width: 200'></td>
+        {% endif %}
+        <td>{{post.name}}</td>
+        <td>{{post.description}}</td>
+
+    </tr>
+{% endfor %}
+</table>
+
+{% endblock %}

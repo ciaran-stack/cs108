@@ -1,0 +1,16 @@
+
+<h3>Are you sure you want to delete this initiative?</h3>
+
+{{initiative.name}}
+
+<form method = 'POST'>
+    {% csrf_token %}
+    <input type = 'submit' name="yes" value="yes">
+</form>
+
+<form method='GET' action="{% url 'show_org_page' initiative.organization.pk %}">
+    {% csrf_token %}
+    <input type = 'submit' name="no" value="no">
+
+</form>
+

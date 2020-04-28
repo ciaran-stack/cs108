@@ -1,0 +1,25 @@
+{% extends 'green_biz/base.html' %}
+
+{% block content %}
+
+<h2>Create an Organization</h2>
+
+<form method = 'POST'>
+    {% csrf_token %}
+    <table border="0">
+        <tr>
+        {% for field in form %}
+
+        <th>{{field.name}}</th>
+        <td>{{field}}</td>
+        </tr>
+        {% endfor %}
+
+        <td></td>
+        <td>
+            <input type ="submit" value="submit">
+        </td>
+    </table>
+
+</form>
+{% endblock %}

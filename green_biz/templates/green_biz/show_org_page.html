@@ -1,0 +1,100 @@
+{% extends 'green_biz/base.html' %}
+
+{% block content %}
+    <table border="1">
+        <h1>Organization</h1>
+        <tr></tr>
+        <td><img src = "{{organization.organization_picture_url}}" style = "max-width: 400"></td>
+        <br>
+        <tr>
+            <td align="center"> <h3>{{organization.name}}  </h3></td>
+        </tr>
+
+        <tr>
+            <td> Email: {{organization.email_address}} </td>
+        </tr>
+        <tr>
+            <td> Industry: {{organization.industry}}</td>
+        </tr>
+
+
+    <tr>
+        <td> <a href = "{% url 'update_org' organization.pk %}" > Update Organization | </a>
+             <a href = "{% url 'show_possible_peers' organization.pk %}" > Show Possible Peers | </a>
+             <a href = "{% url 'news_feed' organization.pk %}" > News Feed </a>
+        </td>
+    </tr>
+    </table>
+    <p></p>
+
+    <table border="1">
+        <tr><td></td><th>Initiatives</th></tr>
+        <tr>
+            <th><h3> Name </h3></th>
+            <th><h3> Image </h3></th>
+            <th><h3> Description </h3></th>
+            <th></th>
+        </tr>
+
+        <tr>
+            {% for inits in organization.get_status_initiatives %}
+            <tr>
+            <td align="center">  {{inits.name}} </td>
+            <td> {% if inits.image %}
+                <img src='{{inits.image.url}}'
+                     style='max-width: 200;'>{% endif %}
+            </td>
+            <td>{{inits.description}}</td>
+            <td align="center"> <a href="{% url 'delete_initiative' organization.pk inits.pk %}"> Delete </a> </td>
+            {% endfor %}
+        </tr>
+    </table>
+
+    <table>
+        <tr><td></td><th>Create Initiative</th></tr>
+
+        <form method='POST'
+              action= "{% url 'post_initiative' organization.pk %}"
+              enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+                <p></p>
+                <tr>
+                {% for field in create_initiative_form %}
+
+                    <th> {{field.name}}  </th>
+                    <td>{{field}}</td>
+
+                </tr>
+                {% endfor %}
+
+            <th>Post</th>
+            <td align ="center"> <input type ="submit" name = "Create Initiative" value="Create Initiative"></td>
+
+        </form>
+    </table>
+
+
+<h2>{{organization.name}}'s Peers</h2>
+
+{% if organization.get_peers %}
+
+{% for p in organization.get_peers %}
+<table border="1">
+    <tr>
+        <td align="center"><a href="{%url 'show_org_page' p.pk%}" >{{p.name}}</a></td>
+        <td><img src= "{{p.organization_picture_url}}" style="max-width: 200;"></td>
+    </tr>
+</table>
+
+
+{% endfor %}
+
+{% else %}
+{{org.name}} does not have any peers.
+{% endif %}
+
+{% endblock %}
+
+
